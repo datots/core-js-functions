@@ -32,14 +32,8 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(func) {
-  // Convert the function to a string
-  const funcString = func.toString();
-
-  // Use regex to extract the body of the function
-  const body = funcString.match(/{([\s\S]*)}/)[1].trim();
-
-  return body;
+function getFunctionBody(/* func */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -95,8 +89,8 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(coefficients) {
-  return (x) => coefficients.reduce((acc, coef, i) => acc + coef * x ** i, 0);
+function getPolynom(/* coefficients */) {
+  throw new Error('Not implemented');
 }
 
 /**

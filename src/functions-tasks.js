@@ -182,7 +182,7 @@ function retry(func, attempts) {
 function logger(func, logFunc) {
   const functionName = func.name || 'anonymous';
 
-  return function (...args) {
+  return function loging(...args) {
     const argsString = args.map((arg) => JSON.stringify(arg)).join(',');
 
     logFunc(`${functionName}(${argsString}) starts`);

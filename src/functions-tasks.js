@@ -32,8 +32,8 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(/* func */) {
-  throw new Error('Not implemented');
+function getFunctionBody(func) {
+  return func ? func.toString() : '';
 }
 
 /**
@@ -89,8 +89,14 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(/* coefficients */) {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  return (x) =>
+    args.length
+      ? args.reduce(
+          (acc, arg, index) => acc + arg * x ** (args.length - index - 1),
+          0
+        )
+      : null;
 }
 
 /**
@@ -134,8 +140,20 @@ function memoize(func) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  let attemptsIndex = 0;
+
+  return function tryAgain() {
+    try {
+      return func();
+    } catch (error) {
+      if (attemptsIndex < attempts) {
+        attemptsIndex += 1;
+        return tryAgain();
+      }
+      return error;
+    }
+  };
 }
 
 /**
@@ -161,8 +179,20 @@ function retry(/* func, attempts */) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  const functionName = func.name || 'anonymous';
+
+  return function (...args) {
+    const argsString = args.map((arg) => JSON.stringify(arg)).join(',');
+
+    logFunc(`${functionName}(${argsString}) starts`);
+
+    const result = func.apply(this, args);
+
+    logFunc(`${functionName}(${argsString}) ends`);
+
+    return result;
+  };
 }
 
 /**
